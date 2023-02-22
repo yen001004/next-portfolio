@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import Animation from "./animation";
 
@@ -17,9 +18,11 @@ const Hero = () => {
           try-hard chambray.
         </p>
         <div className="flex justify-center">
-          <button className="inline-flex px-6 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
-            프로젝트 보러가기
-          </button>
+          <Link href="/projects" legacyBehavior>
+            <a className="inline-flex px-6 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
+              프로젝트 보러가기
+            </a>
+          </Link>
         </div>
       </div>
       <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
