@@ -25,7 +25,7 @@ const Hero = () => {
           </Link>
         </div>
       </div>
-      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+      <div className="w-5/6 lg:max-w-lg lg:w-full md:w-1/2">
         <Animation />
       </div>
     </>
