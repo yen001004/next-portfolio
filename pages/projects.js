@@ -4,8 +4,8 @@ import React from "react";
 import { TOKEN, DATABASE_ID } from "@/config";
 import axios from "axios";
 
-export default function Projects({ result }) {
-  console.log(result);
+export default function Projects({ projectNames }) {
+  console.log("projects", projectNames);
   return (
     <Layout>
       <Head>
@@ -31,17 +31,20 @@ export async function getServerSideProps() {
     },
     data: { page_size: 100 },
   };
-
-  axios
+  const projectNames = await axios
     .request(options)
     .then(function (response) {
-      console.log(response.data);
+      const projects = response.data;
+      const names = projects.results.map(
+        (project) => project.properties.Name.title[0]?.plain_text
+      );
+      return names;
     })
     .catch(function (error) {
       console.error(error);
     });
 
   return {
-    props: {}, // will be passed to the page component as props
+    props: { projectNames }, // will be passed to the page component as props
   };
 }
