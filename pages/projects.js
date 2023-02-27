@@ -3,6 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { TOKEN, DATABASE_ID } from "@/config";
 import axios from "axios";
+import ProjectItem from "@/components/projects/project-item";
 
 export default function Projects({ projects }) {
   return (
@@ -14,7 +15,7 @@ export default function Projects({ projects }) {
       </Head>
       <h1>총 프로젝트 : {projects.results.length}</h1>
       {projects.results.map((project) => (
-        <h1 key={project.id}>{project.properties.Name.title[0]?.plain_text}</h1>
+        <ProjectItem data={project} key={project.id} />
       ))}
     </Layout>
   );
