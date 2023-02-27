@@ -4,8 +4,7 @@ import React from "react";
 import { TOKEN, DATABASE_ID } from "@/config";
 import axios from "axios";
 
-export default function Projects({ projectNames }) {
-  console.log("projects", projectNames);
+export default function Projects({ projects }) {
   return (
     <Layout>
       <Head>
@@ -13,7 +12,10 @@ export default function Projects({ projectNames }) {
         <meta name="description" content="Next로 만드는 포트폴리오" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>프로젝트</h1>
+      <h1>총 프로젝트 : {projects.results.length}</h1>
+      {projects.results.map((project) => (
+        <h1 key={project.id}>{project.properties.Name.title[0]?.plain_text}</h1>
+      ))}
     </Layout>
   );
 }
@@ -29,22 +31,26 @@ export async function getServerSideProps() {
       "Content-Type": "application/json",
       Authorization: `Bearer ${TOKEN}`,
     },
-    data: { page_size: 100 },
+    data: {
+      sorts: [
+        {
+          property: "Name",
+          direction: "ascending",
+        },
+      ],
+      page_size: 100,
+    },
   };
-  const projectNames = await axios
+  const projects = await axios
     .request(options)
     .then(function (response) {
-      const projects = response.data;
-      const names = projects.results.map(
-        (project) => project.properties.Name.title[0]?.plain_text
-      );
-      return names;
+      return response.data;
     })
     .catch(function (error) {
       console.error(error);
     });
 
   return {
-    props: { projectNames }, // will be passed to the page component as props
+    props: { projects }, // will be passed to the page component as props
   };
 }
