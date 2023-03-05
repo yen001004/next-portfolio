@@ -8,15 +8,22 @@ import ProjectItem from "@/components/projects/project-item";
 export default function Projects({ projects }) {
   return (
     <Layout>
-      <Head>
-        <title>Next 포트폴리오</title>
-        <meta name="description" content="Next로 만드는 포트폴리오" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <h1>총 프로젝트 : {projects.results.length}</h1>
-      {projects.results.map((project) => (
-        <ProjectItem data={project} key={project.id} />
-      ))}
+      <div className="flex flex-col items-center justify-center min-h-screen px-3 mb-10">
+        <Head>
+          <title>Next 포트폴리오</title>
+          <meta name="description" content="Next로 만드는 포트폴리오" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <h1 className="text-2xl font-bold sm:text-4xl">
+          총 프로젝트 :
+          <span className="pl-4 text-blue-500">{projects.results.length}</span>
+        </h1>
+        <div className="grid grid-cols-1 gap-8 p-12 m-4 md:grid-cols-2">
+          {projects.results.map((project) => (
+            <ProjectItem data={project} key={project.id} />
+          ))}
+        </div>
+      </div>
     </Layout>
   );
 }
